@@ -6,65 +6,43 @@ use App\Models\User; // Assurez-vous d'importer le bon modèle User
 
 class AuthController extends Controller
 {
-    // Register API - POST (name, email, password)
-    public function register(Request $request){
-
-        // Validation
-        $request->validate([
-            "name" => "required|string",
-            "email" => "required|string|email|unique:users",
-            "password" => "required" // password_confirmation
-        ]);
-
-        // User model to save user in database
-        User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password)
-        ]);
-
-        return response()->json([
-            "status" => true,
-            "message" => "User registered successfully",
-            //"data" => []
-        ]);
-    }
-
-    // Login API - POST (email, password)
-    public function login(Request $request){
-
+    public function login(Request $request)
+    {
         // Validation
         $request->validate([
             "email" => "required|email",
             "password" => "required"
         ]);
 
+        // Debug: Check input
+        \Log::info('Login attempt', ['email' => $request->email]);
+
         $token = auth()->attempt([
             "email" => $request->email,
             "password" => $request->password
         ]);
 
-        if(!$token){
+        // Debug: Check token
+        \Log::info('Login result', ['token' => $token]);
 
+        if (!$token) {
             return response()->json([
                 "status" => false,
-                "message" => "Invalid login details"
-            ]);
+                "message" => "Données invalid"
+            ], 401); // Add a 401 Unauthorized status code
         }
 
         return response()->json([
             "status" => true,
-            "message" => "User logged in successfully",
+            "message" => "Connexion Réuissi",
             "token" => $token,
             //"expires_in" => auth()->factory()->getTTL() * 60
         ]);
-
     }
 
     // Profile API - GET (JWT Auth Token)
-    public function profile(){
-
-        //$userData = auth()->user();
+    public function profile()
+    {
         $userData = request()->user();
 
         return response()->json([
@@ -77,8 +55,8 @@ class AuthController extends Controller
     }
 
     // Refresh Token API - GET (JWT Auth Token)
-    public function refreshToken(){
-
+    public function refreshToken()
+    {
         $token = auth()->refresh();
 
         return response()->json([
@@ -90,13 +68,13 @@ class AuthController extends Controller
     }
 
     // Logout API - GET (JWT Auth Token)
-    public function logout(){
-
+    public function logout()
+    {
         auth()->logout();
 
         return response()->json([
             "status" => true,
-            "message" => "User logged out successfully"
+            "message" => "Déconnection Réuisse"
         ]);
     }
 }
