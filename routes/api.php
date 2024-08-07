@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MatiereController;
+use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\EvaluationController;
 
 // Routes d'authentification
@@ -30,5 +31,12 @@ Route::group([
         Route::get('/{evaluation}', [EvaluationController::class, 'show']); // Afficher une évaluation spécifique
         Route::put('/{evaluation}', [EvaluationController::class, 'update']); // Mettre à jour une évaluation
         Route::delete('/{evaluation}', [EvaluationController::class, 'destroy']); // Supprimer une évaluation
+    });
+    Route::prefix('etudiants')->group(function () {
+        Route::get('/', [EtudiantController::class, 'index']); // Récupérer tous les étudiants
+        Route::post('/', [EtudiantController::class, 'store']); // Créer un nouvel étudiant
+        Route::get('/{etudiant}', [EtudiantController::class, 'show']); // Afficher un étudiant spécifique
+        Route::put('/{etudiant}', [EtudiantController::class, 'update']); // Mettre à jour un étudiant
+        Route::delete('/{etudiant}', [EtudiantController::class, 'destroy']); // Supprimer un étudiant
     });
 });

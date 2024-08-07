@@ -5,62 +5,51 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreEtudiantRequest;
 use App\Http\Requests\UpdateEtudiantRequest;
 use App\Models\Etudiant;
+use Illuminate\Http\JsonResponse;
 
 class EtudiantController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $etudiants = Etudiant::all();
+        return response()->json($etudiants);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEtudiantRequest $request)
+    public function store(StoreEtudiantRequest $request): JsonResponse
     {
-        //
+        $etudiant = Etudiant::create($request->validated());
+        return response()->json($etudiant, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Etudiant $etudiant)
+    public function show(Etudiant $etudiant): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Etudiant $etudiant)
-    {
-        //
+        return response()->json($etudiant);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
+    public function update(UpdateEtudiantRequest $request, Etudiant $etudiant): JsonResponse
     {
-        //
+        $etudiant->update($request->validated());
+        return response()->json($etudiant);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Etudiant $etudiant)
+    public function destroy(Etudiant $etudiant): JsonResponse
     {
-        //
+        $etudiant->delete();
+        return response()->json(null, 204);
     }
 }
