@@ -11,7 +11,7 @@ class UpdateMatiereRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Change to true to allow request
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateMatiereRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelle' => 'sometimes|required|string|max:255',
+            'date_debut' => 'sometimes|required|date',
+            'date_fin' => 'sometimes|required|date|after_or_equal:date_debut',
+            'ue_id' => 'sometimes|required|exists:ues,id',
         ];
     }
 }

@@ -11,7 +11,8 @@ class StoreMatiereRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Change to true to allow request
+
     }
 
     /**
@@ -22,7 +23,10 @@ class StoreMatiereRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'libelle' => 'required|string|max:255',
+            'date_debut' => 'required|date',
+            'date_fin' => 'required|date|after_or_equal:date_debut',
+            'ue_id' => 'required|exists:ues,id',
         ];
     }
 }
