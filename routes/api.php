@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 
 
 // Routes d'authentification
-Route::post("register", [AuthController::class, "register"]);
 Route::post("login", [AuthController::class, "login"]);
 
 Route::group([
@@ -40,7 +39,7 @@ Route::group([
         Route::get('/', [EtudiantController::class, 'index']); // Récupérer tous les étudiants
         Route::post('/', [EtudiantController::class, 'store']); // Créer un nouvel étudiant
         Route::get('/{etudiant}', [EtudiantController::class, 'show']); // Afficher un étudiant spécifique
-        Route::put('/{etudiant}', [EtudiantController::class, 'update']); // Mettre à jour un étudiant
+        Route::patch('/{etudiant}', [EtudiantController::class, 'update']); // Mettre à jour un étudiant
         Route::delete('/{etudiant}', [EtudiantController::class, 'destroy']); // Supprimer un étudiant
     });
     //uniter de enseignements

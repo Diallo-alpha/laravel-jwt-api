@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,9 +22,10 @@ class UpdateUeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => 'sometimes|required|string|max:10|unique:ues,code,' . $this->ue->id,
-            'intitule' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string|max:1000',
+            'date_debut' => 'sometimes|required|date',
+            'date_fin' => 'sometimes|required|date',
+            'coef' => 'sometimes|required|integer',
+            'libelle' => 'sometimes|required|string|max:255|unique:ues,libelle,' . $this->ue->id,
         ];
     }
 
@@ -35,9 +37,12 @@ class UpdateUeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'code.required' => 'Le code est requis.',
-            'code.unique' => 'Le code est déjà utilisé.',
-            'intitule.required' => 'L\'intitulé est requis.',
+            'date_debut.required' => 'La date de début est requise.',
+            'date_fin.required' => 'La date de fin est requise.',
+            'coef.required' => 'Le coefficient est requis.',
+            'coef.integer' => 'Le coefficient doit être un nombre entier.',
+            'libelle.required' => 'Le libellé est requis.',
+            'libelle.unique' => 'Le libellé est déjà utilisé.',
         ];
     }
 }

@@ -22,10 +22,11 @@ class StoreEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'date_evaluation' => 'required|date',
-            'matiere_id' => 'required|exists:matieres,id', // Assure que la matière existe
+            'etudiant_id' => 'required|string|max:255',
+            'matiere_id' => 'required|exists:matieres,id',
+            'date' => 'required|date',
+            'valeur' => 'nullable|string',
+
         ];
     }
 }

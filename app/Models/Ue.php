@@ -11,7 +11,8 @@ class Ue extends Model
 
     protected $fillable = ['date_debut', 'date_fin', 'coef', 'libelle'];
 
-    public function matieres() {
+    public function matieres()
+    {
         return $this->hasMany(Matiere::class);
     }
 }

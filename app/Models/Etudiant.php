@@ -11,8 +11,15 @@ class Etudiant extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'prenom', 'nom', 'adresse', 'telephone',
-        'matricule', 'email', 'mot_de_passe', 'photo', 'date_de_naissance'
+        'nom',
+        'prenom',
+        'adresse',
+        'telephone',
+        'date_de_naissance',
+        'matricule',
+        'email',
+        'mot_de_passe',
+        'photo'
     ];
 
     public function evaluations() {

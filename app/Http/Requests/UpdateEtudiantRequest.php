@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -23,10 +24,11 @@ class UpdateEtudiantRequest extends FormRequest
         return [
             'nom' => 'sometimes|required|string|max:255',
             'prenom' => 'sometimes|required|string|max:255',
-            'date_naissance' => 'sometimes|required|date',
-            'email' => 'sometimes|required|email|unique:etudiants,email,' . $this->etudiant->id,
-            'telephone' => 'nullable|string|max:20',
             'adresse' => 'nullable|string|max:255',
+            'telephone' => 'nullable|string|max:20',
+            'date_naissance' => 'sometimes|required|date',
+            'matricule' => 'nullable|string|max:10',
+            'email' => 'sometimes|required|email|unique:etudiants,email,' . $this->etudiant->id,
         ];
     }
 
@@ -40,6 +42,7 @@ class UpdateEtudiantRequest extends FormRequest
         return [
             'nom.required' => 'Le nom est requis.',
             'prenom.required' => 'Le prénom est requis.',
+            'adresse.max' => 'L\'adresse ne doit pas dépasser 255 caractères.',
             'date_naissance.required' => 'La date de naissance est requise.',
             'email.required' => 'L\'email est requis.',
             'email.email' => 'L\'email doit être valide.',
@@ -47,4 +50,3 @@ class UpdateEtudiantRequest extends FormRequest
         ];
     }
 }
-
