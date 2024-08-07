@@ -11,7 +11,7 @@ class StoreEvaluationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Change to true to allow request
     }
 
     /**
@@ -22,7 +22,10 @@ class StoreEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'date_evaluation' => 'required|date',
+            'matiere_id' => 'required|exists:matieres,id', // Assure que la matière existe
         ];
     }
 }

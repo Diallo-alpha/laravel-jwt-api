@@ -11,7 +11,7 @@ class UpdateEvaluationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true; // Change to true to allow request
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateEvaluationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'sometimes|required|string|max:255',
+            'description' => 'nullable|string',
+            'date_evaluation' => 'sometimes|required|date',
+            'matiere_id' => 'sometimes|required|exists:matieres,id', // Assure que la matière existe
         ];
     }
 }
+
